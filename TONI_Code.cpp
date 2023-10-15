@@ -98,7 +98,92 @@ class CommandAssistant : public Assistant
 public:
     CommandAssistant(Voice *v) : Assistant(v) {}
 
-    // Process user commands from the command line
+    void openGoogle()
+    {
+        string s = "https://www.google.co.in/";
+        typing("opening google in chrome browser");
+        cout << "\n\n";
+        ShellExecute(NULL, "open", s.c_str(), NULL, NULL, SW_SHOWNORMAL);
+    }
+
+    void searchGoogle()
+    {
+        char text[100];
+        string res;
+        string g = "https://www.google.com/search?q=";
+        typing("Enter what do you want to search : ");
+        gets(text);
+        res = g + text;
+        typing("searching in google");
+        cout << "\n\n";
+        ShellExecute(NULL, "open", res.c_str(), NULL, NULL, SW_SHOWNORMAL);
+    }
+
+    void whoAreYou()
+    {
+        typing("Hi!, I'm Toni, which stands for 'Totally Overrated Noise Initiator.' My capabilities include executing straightforward tasks like conducting searches across various platforms and engaging in basic conversations.");
+        cout << "\n\n";
+    }
+
+    void changeVoice()
+    {
+        typing("I'm sorry, but your request goes against my programming to maintain a respectful and helpful tone. If you have any other requests or need assistance with something, please feel free to ask, and I'll be happy to help");
+        cout << "\n\n";
+    }
+
+    void openYoutube()
+    {
+        string n = "https://www.youtube.com/";
+
+        typing("Opening youtube in chrome browser");
+        cout << "\n\n";
+
+        ShellExecute(NULL, "open", n.c_str(), NULL, NULL, SW_SHOWNORMAL);
+    }
+
+    void searchYoutube()
+    {
+        char text1[100];
+
+        typing("Enter what do you want to search : ");
+        gets(text1);
+
+        string s;
+        string res1 = "https://www.youtube.com/results?search_query=";
+
+        s = res1 + text1;
+
+        typing("searching on youtube");
+        cout << "\n\n";
+
+        ShellExecute(NULL, "open", s.c_str(), NULL, NULL, SW_SHOWNORMAL);
+    }
+
+    void bye()
+    {
+        system("cls");
+        typing("Have a nice day");
+        exit(0);
+    }
+
+    void howAreYou()
+    {
+        typing("I am good!, How are you!");
+        cout << "\n\n";
+    }
+
+    void hello()
+    {
+        typing("what I can do for you ");
+        cout << "\n\n";
+    }
+
+    void timeOrDate()
+    {
+        typing("the time and date is on top of the application");
+        cout << "\n\n";
+    }
+
     void processCommands()
     {
         char ch[100];
@@ -108,94 +193,46 @@ public:
 
             if (strcmp(ch, "open google") == 0)
             {
-                string s = "https://www.google.co.in/";
-                typing("opening google in chrome browser");
-                cout << "\n\n";
-                ShellExecute(NULL, "open", s.c_str(), NULL, NULL, SW_SHOWNORMAL);
+                openGoogle();
             }
             else if (strcmp(ch, "search google") == 0)
             {
-                char text[100];
-                string res;
-                string g = "https://www.google.com/search?q=";
-                typing("Enter what do you want to search : ");
-                gets(text);
-                res = g + text;
-                typing("searching in google");
-                cout << "\n\n";
-                ShellExecute(NULL, "open", res.c_str(), NULL, NULL, SW_SHOWNORMAL);
+                searchGoogle();
             }
             else if (strcmp(ch, "who are you?") == 0)
             {
-                typing("Hi!,I'm Toni, which stands for 'Totally Overrated Noise Initiator.' My capabilities include executing straightforward tasks like conducting searches across various platforms and engaging in basic conversations.");
-                cout << "\n\n";
+                whoAreYou();
             }
-
             else if (strcmp(ch, "change voice") == 0)
             {
-                typing("I'm sorry, but your request goes against my programming to maintain a respectful and helpful tone. If you have any other requests or need assistance with something, please feel free to ask, and I'll be happy to help");
-                cout << "\n\n";
+                changeVoice();
             }
-
             else if (strcmp(ch, "open youtube") == 0)
-
             {
-                string n = "https://www.youtube.com/";
-
-                typing("Opening youtube in chrome browser");
-                cout << "\n\n";
-
-                ShellExecute(NULL, "open", n.c_str(), NULL, NULL, SW_SHOWNORMAL);
+                openYoutube();
             }
-
             else if (strcmp(ch, "search youtube") == 0)
             {
-                char text1[100];
-
-                typing("Enter what do you want to search : ");
-                gets(text1);
-
-                string s;
-                string res1 = "https://www.youtube.com/results?search_query=";
-
-                s = res1 + text1;
-
-                typing("searching on youtube");
-                cout << "\n\n";
-
-                ShellExecute(NULL, "open", s.c_str(), NULL, NULL, SW_SHOWNORMAL);
+                searchYoutube();
             }
-
             else if (strcmp(ch, "bye") == 0 || strcmp(ch, "stop") == 0 || strcmp(ch, "exit") == 0)
             {
-                system("cls");
-                typing("Have a nice day");
-                exit(0);
+                bye();
             }
-
             else if (strcmp(ch, "how are you") == 0)
             {
-
-                typing("I am good!, How are you!");
-                cout << "\n\n";
+                howAreYou();
             }
-
             else if (strcmp(ch, "hi") == 0 || strcmp(ch, "hello") == 0)
             {
-
-                typing("what I can do for you ");
-                cout << "\n\n";
+                hello();
             }
-
             else if (strcmp(ch, "time") == 0 || strcmp(ch, "date") == 0)
             {
-                typing("the time and date is on top of the application");
-                cout << "\n\n";
+                timeOrDate();
             }
-
             else
             {
-
                 typing("Pardon, Invalid command");
                 cout << "\n\n";
             }
