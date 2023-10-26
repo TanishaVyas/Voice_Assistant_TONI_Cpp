@@ -1,10 +1,10 @@
 #include <iostream>
 #include <windows.h>
 #include <mmsystem.h>
-#include <stdio.h>
 #include <ctime>
 #include <fstream>
 #include <cstdio>
+#include <cstring>
 
 using namespace std;
 
@@ -47,7 +47,7 @@ public:
     {
         voice->speak(t);
         cout << "\n\n";
-        for (int i = 0; t[i] != '\0'; i++)
+        for (int i = 0; i < t.length(); i++)
         {
             cout << t[i];
             Sleep(65);
@@ -57,11 +57,6 @@ public:
     void typing(const char *t)
     {
         typing(string(t));
-    }
-
-    void typing(int t)
-    {
-        typing(to_string(t));
     }
 };
 
@@ -101,7 +96,7 @@ public:
     void openGoogle()
     {
         string s = "https://www.google.co.in/";
-        typing("opening google in chrome browser");
+        typing("Opening Google in the Chrome browser");
         cout << "\n\n";
         ShellExecute(NULL, "open", s.c_str(), NULL, NULL, SW_SHOWNORMAL);
     }
@@ -111,12 +106,16 @@ public:
         char text[100];
         string res;
         string g = "https://www.google.com/search?q=";
-        typing("Enter what do you want to search : ");
-        gets(text);
-        res = g + text;
-        typing("searching in google");
-        cout << "\n\n";
-        ShellExecute(NULL, "open", res.c_str(), NULL, NULL, SW_SHOWNORMAL);
+        typing("Enter what do you want to search: ");
+
+        if (fgets(text, sizeof(text), stdin) != NULL)
+        {
+            text[strcspn(text, "\n")] = '\0';
+            res = g + text;
+            typing("Searching in Google");
+            cout << "\n\n";
+            ShellExecute(NULL, "open", res.c_str(), NULL, NULL, SW_SHOWNORMAL);
+        }
     }
 
     void whoAreYou()
@@ -135,7 +134,7 @@ public:
     {
         string n = "https://www.youtube.com/";
 
-        typing("Opening youtube in chrome browser");
+        typing("Opening YouTube in the Chrome browser");
         cout << "\n\n";
 
         ShellExecute(NULL, "open", n.c_str(), NULL, NULL, SW_SHOWNORMAL);
@@ -145,18 +144,19 @@ public:
     {
         char text1[100];
 
-        typing("Enter what do you want to search : ");
-        gets(text1);
+        typing("Enter what do you want to search: ");
+        if (fgets(text1, sizeof(text1), stdin) != NULL)
+        {
+            text1[strcspn(text1, "\n")] = '\0';
 
-        string s;
-        string res1 = "https://www.youtube.com/results?search_query=";
+            string s;
+            string res1 = "https://www.youtube.com/results?search_query=";
+            s = res1 + text1;
 
-        s = res1 + text1;
-
-        typing("searching on youtube");
-        cout << "\n\n";
-
-        ShellExecute(NULL, "open", s.c_str(), NULL, NULL, SW_SHOWNORMAL);
+            typing("Searching on YouTube");
+            cout << "\n\n";
+            ShellExecute(NULL, "open", s.c_str(), NULL, NULL, SW_SHOWNORMAL);
+        }
     }
 
     void bye()
@@ -174,13 +174,13 @@ public:
 
     void hello()
     {
-        typing("what I can do for you ");
+        typing("What can I do for you?");
         cout << "\n\n";
     }
 
     void timeOrDate()
     {
-        typing("the time and date is on top of the application");
+        typing("The time and date is on top of the application");
         cout << "\n\n";
     }
 
@@ -189,52 +189,56 @@ public:
         char ch[100];
         while (1)
         {
-            gets(ch);
+            cout << "==>  ";
+            if (fgets(ch, sizeof(ch), stdin) != NULL)
+            {
+                ch[strcspn(ch, "\n")] = '\0';
 
-            if (strcmp(ch, "open google") == 0)
-            {
-                openGoogle();
-            }
-            else if (strcmp(ch, "search google") == 0)
-            {
-                searchGoogle();
-            }
-            else if (strcmp(ch, "who are you?") == 0)
-            {
-                whoAreYou();
-            }
-            else if (strcmp(ch, "change voice") == 0)
-            {
-                changeVoice();
-            }
-            else if (strcmp(ch, "open youtube") == 0)
-            {
-                openYoutube();
-            }
-            else if (strcmp(ch, "search youtube") == 0)
-            {
-                searchYoutube();
-            }
-            else if (strcmp(ch, "bye") == 0 || strcmp(ch, "stop") == 0 || strcmp(ch, "exit") == 0)
-            {
-                bye();
-            }
-            else if (strcmp(ch, "how are you") == 0)
-            {
-                howAreYou();
-            }
-            else if (strcmp(ch, "hi") == 0 || strcmp(ch, "hello") == 0)
-            {
-                hello();
-            }
-            else if (strcmp(ch, "time") == 0 || strcmp(ch, "date") == 0)
-            {
-                timeOrDate();
-            }
-            else
-            {
-                typing("Pardon, Invalid command");
-                cout << "\n\n";
+                if (strcmp(ch, "open google") == 0)
+                {
+                    openGoogle();
+                }
+                else if (strcmp(ch, "search google") == 0)
+                {
+                    searchGoogle();
+                }
+                else if (strcmp(ch, "who are you?") == 0)
+                {
+                    whoAreYou();
+                }
+                else if (strcmp(ch, "change voice") == 0)
+                {
+                    changeVoice();
+                }
+                else if (strcmp(ch, "open youtube") == 0)
+                {
+                    openYoutube();
+                }
+                else if (strcmp(ch, "search youtube") == 0)
+                {
+                    searchYoutube();
+                }
+                else if (strcmp(ch, "bye") == 0 || strcmp(ch, "stop") == 0 || strcmp(ch, "exit") == 0)
+                {
+                    bye();
+                }
+                else if (strcmp(ch, "how are you") == 0)
+                {
+                    howAreYou();
+                }
+                else if (strcmp(ch, "hi") == 0 || strcmp(ch, "hello") == 0)
+                {
+                    hello();
+                }
+                else if (strcmp(ch, "time") == 0 || strcmp(ch, "date") == 0)
+                {
+                    timeOrDate();
+                }
+                else
+                {
+                    typing("Pardon, Invalid command");
+                    cout << "\n\n";
+                }
             }
         }
     }
@@ -248,11 +252,11 @@ int main()
 
     greetingAssistant.greet();
 
-    cout << "\n\n******************************** Your Assistant *************************************** \n\n";
+    cout << "\n\n******************************** TONI *************************************** \n\n";
     time_t now = time(0);
     char *dt = ctime(&now);
     cout << "\n\nThe date and time is " << dt << endl;
-    cout << "********************************************************************************************\n\n==>  ";
+    cout << "********************************************************************************************\n\n";
 
     commandAssistant.processCommands();
 
